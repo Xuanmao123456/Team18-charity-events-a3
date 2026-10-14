@@ -1,0 +1,108 @@
+<main class="detail-container">
+
+  @if (loading) {
+    <p class="loading">Loading event details...</p>
+  }
+
+  @if (error) {
+    <div class="error-state">
+      <h3>Event not found</h3>
+      <p>The event you're looking for doesn't exist or has been removed.</p>
+      <p><a routerLink="/">← Back to Home</a></p>
+    </div>
+  }
+
+  @if (!loading && !error && event) {
+    <img class="detail-image"
+         [src]="event.image_url || 'https://via.placeholder.com/900x400?text=Charity+Event'"
+         [alt]="event.title"
+         (error)="event.image_url = 'https://via.placeholder.com/900x400?text=Event'">
+
+    <div class="detail-header">
+      <span class="category-badge" [ngClass]="getCategoryClass(event.category_name)">{{ event.category_name }}</span>
+      <h1>{{ event.title }}</h1>
+      <p style="color:var(--text-light);font-size:1.1rem;">Organised by <strong>{{ event.org_name }}</strong></p>
+    </div>
+
+    <div class="detail-grid">
+      <div>
+        <div class="detail-section section-orange">
+          <h3>About This Event</h3>
+          <p>{{ event.description }}</p>
+        </div>
+
+        <div class="detail-section section-green">
+          <h3>About the Charity</h3>
+          <p>{{ event.org_description || '' }}</p>
+          <p style="margin-top:0.5rem;">
+            📧 {{ event.contact_email }} &nbsp;|&nbsp; 📞 {{ event.phone }}
+          </p>
+        </div>
+
+        <div class="detail-section section-lavender">
+          <h3>👥 Who's Coming</h3>
+          @if (registrations.length === 0) {
+            <p style="color:var(--text-light);font-style:italic;">No registrations yet — be the first!</p>
+          }
+          @if (registrations.length > 0) {
+            <p style="margin-bottom:0.8rem;">
+              <strong>{{ regStats.count }}</strong> person(s) registered,
+              <strong>{{ regStats.total_tickets }}</strong> tickets sold.
+            </p>
+            <ul style="list-style:none;padding:0;">
+              @for (r of registrations; track r.registration_id) {
+                <li style="padding:0.5rem 0;border-bottom:1px dashed var(--border);display:flex;justify-content:space-between;align-items:center;">
+                  <span>👤 {{ r.full_name }}</span>
+                  <span style="color:var(--mist-blue-dark);font-size:0.9rem;">
+                    {{ r.ticket_quantity }} ticket(s) · {{ formatDate(r.registered_at) }}
+                  </span>
+                </li>
+              }
+            </ul>
+          }
+        </div>
+      </div>
+
+      <div>
+        <div class="detail-section section-blue">
+          <h3>Event Details</h3>
+          <p>📅 <strong>Date:</strong> {{ formatDate(event.event_date) }}</p>
+          <p>🕐 <strong>Time:</strong> {{ formatTime(event.start_time) }} – {{ formatTime(event.end_time) }}</p>
+          <p>📍 <strong>Venue:</strong> {{ event.location }}</p>
+          <p>🏠 <strong>Address:</strong> {{ event.address }}, {{ event.city }}</p>
+          <p>🎟️ <strong>Ticket:</strong> <span style="color:#b88469;font-weight:700;font-size:1.1rem;">{{ getPriceText(event) }}</span></p>
+
+          @if (weather) {
+            <div style="margin-top:0.8rem;padding-top:0.8rem;border-top:1px dashed var(--border);">
+              <p>🌤️ <strong>Weather forecast:</strong> {{ weather.temperature_c }}°C, {{ weather.weather_label }}</p>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom-actions">
+      <div class="detail-section fundraising-section section-purple">
+        <h3>Fundraising Goal</h3>
+        <p style="font-size:1.8rem;font-weight:700;color:#b8a9b8;margin-bottom:0.5rem;">{{ getGoalPercent(event) }}%</p>
+        <div class="progress-bar">
+          <div class="fill" [style.width.%]="getGoalPercent(event)" style="background:linear-gradient(90deg,#b8a9b8,#94a8b8);"></div>
+        </div>
+        <p style="margin-top:0.5rem;font-size:0.95rem;color:var(--text-light);">
+          Raised ${{ formatMoney(getRaisedAmount(event)) }} of ${{ formatMoney(getGoalAmount(event)) }}
+        </p>
+      </div>
+
+      <a [routerLink]="['/register', event.event_id]" class="btn btn-register" style="text-decoration:none;display:inline-block;text-align:center;">
+        ✨ Register Now ✨
+      </a>
+    </div>
+
+    <div class="back-button-wrapper">
+      <a href="javascript:history.back()" class="back-btn">
+        ← Back to Events
+      </a>
+    </div>
+  }
+
+</main>

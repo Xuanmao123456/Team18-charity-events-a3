@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register - Charity Events Gold Coast</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Registration page specific styles */
+    .reg-container {
+      max-width: 720px;
+      margin: 2.5rem auto;
+      padding: 0 1.5rem;
+    }
+    .reg-event-info {
+      background: linear-gradient(135deg, var(--lavender) 0%, var(--dusty-rose) 100%);
+      border-radius: 20px;
+      padding: 2rem;
+      color: #fff;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow-md);
+    }
+    .reg-event-info h2 {
+      font-size: 1.6rem;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.15);
+    }
+    .reg-event-info p {
+      opacity: 0.95;
+      font-size: 0.95rem;
+    }
+    .reg-form-card {
+      background: var(--card);
+      border-radius: 20px;
+      padding: 2.5rem;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border);
+    }
+    .reg-form-card h3 {
+      color: var(--lavender-dark);
+      margin-bottom: 1.5rem;
+      font-size: 1.3rem;
+    }
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 0.4rem;
+      color: var(--text);
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      font-size: 1rem;
+      font-family: inherit;
+      background: var(--cream);
+      transition: border-color 0.2s;
+      color: var(--text);
+    }
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--lavender-dark);
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .btn-submit {
+      width: 100%;
+      padding: 1rem;
+      background: linear-gradient(135deg, var(--sage) 0%, var(--sage-light) 100%);
+      color: #fff;
+      border: none;
+      border-radius: 14px;
+      font-size: 1.1rem;
+      font-family: inherit;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 0.5rem;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(139, 168, 136, 0.4);
+    }
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--mist-blue-dark);
+      text-decoration: none;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+    .btn-back:hover { color: var(--mist-blue); }
+    .reg-message {
+      padding: 1rem;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      font-weight: 600;
+      text-align: center;
+    }
+    .reg-message.success { background: var(--sage-light); color: var(--sage-dark, #5a7a5a); }
+    .reg-message.error { background: #f3d5d5; color: #9a5555; }
+    @media (max-width: 600px) {
+      .form-row { grid-template-columns: 1fr; }
+      .reg-form-card { padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="index.html" class="logo">Charity<span>Events</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="search.html">Search Events</a></li>
+    </ul>
+  </nav>
+
+  <main class="reg-container">
+    <a href="#" class="btn-back" id="back-btn">← Back to Event</a>
+    <div id="reg-event-info" class="reg-event-info">
+      <p class="loading" style="color:#fff;opacity:0.8;">Loading event information...</p>
+    </div>
+
+    <div class="reg-form-card">
+      <h3>🎟️ Registration Form</h3>
+      <div id="reg-message"></div>
+      <form id="registration-form">
+        <div class="form-group">
+          <label for="full_name">Full Name *</label>
+          <input type="text" id="full_name" name="full_name" required placeholder="e.g. Emma Wilson">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email">Email Address *</label>
+            <input type="email" id="email" name="email" required placeholder="you@example.com">
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="+61 4xx xxx xxx">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="ticket_quantity">Number of Tickets *</label>
+          <select id="ticket_quantity" name="ticket_quantity" required>
+            <option value="1">1 ticket</option>
+            <option value="2">2 tickets</option>
+            <option value="3">3 tickets</option>
+            <option value="4">4 tickets</option>
+            <option value="5">5 tickets</option>
+            <option value="6">6 tickets</option>
+            <option value="8">8 tickets</option>
+            <option value="10">10 tickets</option>
+          </select>
+        </div>
+        <button type="submit" class="btn-submit">✅ Confirm Registration</button>
+      </form>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2026 Charity Events Gold Coast | PROG2002 Team 18</p>
+  </footer>
+
+  <script src="js/registration.js"></script>
+</body>
+</html>
