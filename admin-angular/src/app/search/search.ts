@@ -11,12 +11,12 @@ import { EventService, Event, Category } from '../services/event.service';
   templateUrl: './search.html',
 })
 export class Search implements OnInit {
-  // 搜索表单
+  // Search form filters
   date = '';
   location = '';
   categoryId = '';
 
-  // 数据
+  // Component data
   categories: Category[] = [];
   events: Event[] = [];
   loading = true;

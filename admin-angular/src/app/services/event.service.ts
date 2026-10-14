@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-// TypeScript 接口定义（跟数据库字段对应）
+// TypeScript interfaces (matching database schema)
 export interface Event {
   event_id: number;
   title: string;
@@ -65,17 +65,17 @@ export class EventService {
 
   constructor(private http: HttpClient) { }
 
-  // 获取首页活动列表（active 状态）
+  // Get all active events for home page
   getEvents(): Observable<{ success: boolean; count: number; data: Event[] }> {
     return this.http.get<{ success: boolean; count: number; data: Event[] }>(`${this.apiUrl}/events`);
   }
 
-  // 获取单个活动详情（含注册列表）
+  // Get single event details (with registration list)
   getEventById(id: number): Observable<{ success: boolean; data: Event }> {
     return this.http.get<{ success: boolean; data: Event }>(`${this.apiUrl}/events/${id}`);
   }
 
-  // 搜索活动
+  // Search events by filters
   searchEvents(params: { date?: string; city?: string; category_id?: number }): Observable<{ success: boolean; count: number; data: Event[] }> {
     let httpParams = new HttpParams();
     if (params.date) httpParams = httpParams.set('date', params.date);
@@ -85,17 +85,17 @@ export class EventService {
     return this.http.get<{ success: boolean; count: number; data: Event[] }>(`${this.apiUrl}/events/search`, { params: httpParams });
   }
 
-  // 获取所有分类
+  // Get all event categories
   getCategories(): Observable<{ success: boolean; data: Category[] }> {
     return this.http.get<{ success: boolean; data: Category[] }>(`${this.apiUrl}/categories`);
   }
 
-  // 提交注册
+  // Submit event registration
   register(data: { event_id: number; full_name: string; email: string; phone?: string; ticket_quantity: number }): Observable<{ success: boolean; message: string; data?: Registration }> {
     return this.http.post<{ success: boolean; message: string; data?: Registration }>(`${this.apiUrl}/registrations`, data);
   }
 
-  // 获取天气
+  // Get weather data for event location
   getWeather(latitude: number, longitude: number): Observable<WeatherData> {
     let params = new HttpParams()
       .set('latitude', latitude.toString())

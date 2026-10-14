@@ -1,4 +1,4 @@
-// 临时脚本：给数据库表加 is_custom 字段
+// Migration script: add is_custom column to database tables
 const mysql = require('mysql2/promise');
 
 async function main() {
@@ -9,7 +9,7 @@ async function main() {
     database: 'charityevents_db'
   });
 
-  // 检查列是否已存在，不存在才添加
+  // Check if column already exists, add only if not present
   const [catCols] = await conn.query(`SHOW COLUMNS FROM categories LIKE 'is_custom'`);
   if (catCols.length === 0) {
     await conn.query(`ALTER TABLE categories ADD COLUMN is_custom TINYINT NOT NULL DEFAULT 0`);

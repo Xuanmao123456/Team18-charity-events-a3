@@ -43,7 +43,7 @@ export class EventDetail implements OnInit {
         this.registrations = result.data.registrations || [];
         this.regStats = result.data.registration_stats || { count: 0, total_tickets: 0 };
 
-        // 如果有经纬度，加载天气
+        // Load weather if latitude/longitude are available
         if (this.event?.latitude && this.event?.longitude) {
           this.loadWeather(this.event.latitude, this.event.longitude);
         }

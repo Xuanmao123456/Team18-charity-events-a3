@@ -17,7 +17,7 @@ export class Home implements OnInit {
 
   constructor(private eventService: EventService, private cdr: ChangeDetectorRef) { }
 
-  // 轮播图幻灯片
+  // Hero carousel slides
   slides = [
     {
       title: 'Together, We Can Make a Difference',

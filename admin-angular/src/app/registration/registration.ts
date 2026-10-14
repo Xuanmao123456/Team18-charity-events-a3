@@ -17,7 +17,7 @@ export class Registration implements OnInit {
   message = '';
   messageType: 'success' | 'error' | '' = '';
 
-  // 表单数据
+  // Registration form data
   fullName = '';
   email = '';
   phone = '';
@@ -70,12 +70,12 @@ export class Registration implements OnInit {
       next: (result) => {
         this.message = result.message || 'Registration successful!';
         this.messageType = 'success';
-        // 重置表单
+        // Reset form after successful registration
         this.fullName = '';
         this.email = '';
         this.phone = '';
         this.ticketQuantity = 1;
-        // 2.5秒后跳回详情页
+        // Redirect back to event detail page after 2.5 seconds
         setTimeout(() => {
           window.location.href = `/event/${this.event?.event_id}`;
         }, 2500);
