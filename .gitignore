@@ -4,3 +4,5 @@ pylibs/
 .DS_Store
 
 *.log
+*.zip
+temp-package/

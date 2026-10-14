@@ -15,6 +15,7 @@
 const express = require('express');
 const cors = require('cors');
 const https = require('https');
+const path = require('path');
 const { testConnection } = require('./event_db');
 const eventsRouter = require('./routes/events');
 const categoriesRouter = require('./routes/categories');
@@ -29,6 +30,9 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());                       // allow cross-origin from frontend
 app.use(express.json());               // parse JSON request bodies
 app.use(express.urlencoded({ extended: true }));
+
+// Serve static frontend files (HTML, CSS, JS, images) from /client folder
+app.use(express.static(path.join(__dirname, '..', 'client')));
 
 // API Routes
 app.use('/api/events', eventsRouter);
