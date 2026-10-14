@@ -1,0 +1,63 @@
+<main class="reg-container">
+
+  @if (event) {
+    <a [routerLink]="['/event', event.event_id]" class="btn-back">← Back to Event</a>
+  } @else {
+    <a routerLink="/" class="btn-back">← Back to Home</a>
+  }
+
+  <div class="reg-event-info">
+    @if (loading) {
+      <p style="color:#fff;opacity:0.8;">Loading event information...</p>
+    }
+    @if (error) {
+      <p>{{ error }}</p>
+    }
+    @if (!loading && !error && event) {
+      <h2>{{ event.title }}</h2>
+      <p>📅 {{ formatDate(event.event_date) }} at {{ formatTime(event.start_time) }}</p>
+      <p>📍 {{ event.location }}, {{ event.city }}</p>
+      <p>💰 Ticket price: ${{ getPriceText(event) }}</p>
+    }
+  </div>
+
+  <div class="reg-form-card">
+    <h3>🎟️ Registration Form</h3>
+
+    @if (message) {
+      <div class="reg-message" [ngClass]="messageType">{{ message }}</div>
+    }
+
+    <form (ngSubmit)="handleSubmit()">
+      <div class="form-group">
+        <label for="full_name">Full Name *</label>
+        <input type="text" id="full_name" name="full_name" required placeholder="e.g. Emma Wilson" [(ngModel)]="fullName">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="email">Email Address *</label>
+          <input type="email" id="email" name="email" required placeholder="you@example.com" [(ngModel)]="email">
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" name="phone" placeholder="+61 4xx xxx xxx" [(ngModel)]="phone">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="ticket_quantity">Number of Tickets *</label>
+        <select id="ticket_quantity" name="ticket_quantity" required [(ngModel)]="ticketQuantity">
+          <option [value]="1">1 ticket</option>
+          <option [value]="2">2 tickets</option>
+          <option [value]="3">3 tickets</option>
+          <option [value]="4">4 tickets</option>
+          <option [value]="5">5 tickets</option>
+          <option [value]="6">6 tickets</option>
+          <option [value]="8">8 tickets</option>
+          <option [value]="10">10 tickets</option>
+        </select>
+      </div>
+      <button type="submit" class="btn-submit">✅ Confirm Registration</button>
+    </form>
+  </div>
+
+</main>
