@@ -1,112 +1,186 @@
-# Charity Events Website — PROG2002 Assignment 2
+# Charity Events Platform — PROG2002 Assignment 3
 
-A fully functional dynamic website that helps users discover, search, and register for charity events across the Gold Coast and Brisbane region of Australia. The application is built with a RESTful API powered by Node.js and Express, a MySQL relational database, and a responsive front end using semantic HTML5, modern CSS (Morandi warm colour palette), and vanilla JavaScript with the DOM API. Key features include an animated home page with stacked image carousels, a search page with date/location/category filters, detailed event pages with fundraising progress bars, rescue stories with before-and-after photos, an adoption gallery, an impact dashboard, and an interactive admin management page where users can add or delete custom categories and events, which are synchronised with the database in real time. Protected seed data cannot be removed, ensuring data integrity. The whole project runs locally with MySQL Server and can be launched by importing the provided SQL dump and starting the Express server.
+**Team 18**
+**Members**: Suping Li (24832368), Xinya Su (24832685)
+
+A full-stack charity events platform that connects passionate organisers with caring supporters across the Gold Coast and Brisbane region of Australia. This assignment builds upon A2 by migrating the frontend to **Angular 22 + TypeScript** and adding a dedicated admin panel for event organisers.
 
 ---
 
-## Project Structure
+## ✨ Key Features
+
+### Client-side (Public Website)
+- Hero carousel with 3 rotating slides
+- Dynamic event listing (7 charity events)
+- Search and filter events
+- Event detail pages with registration form
+- Rescue stories with before-and-after photos
+- About us page
+- Our impact statistics
+- Adoptable pets gallery
+- Weather integration for event locations (Open-Meteo API)
+
+### Admin-side (Organiser Dashboard)
+- Admin login
+- Event management (Create / Read / Update / Delete)
+- Registration management
+- Data dashboard
+
+---
+
+## 🛠 Technology Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Frontend (Client) | Angular 22 + TypeScript + CSS3 |
+| Frontend (Admin) | Angular 22 + TypeScript + CSS3 |
+| Backend | Node.js + Express.js |
+| Database | MySQL |
+| API Style | RESTful API |
+| Third-party API | Open-Meteo Weather API |
+| Version Control | Git + GitHub |
+
+---
+
+## 📁 Project Structure
 
 ```
-charity-events-website/
+Team18-charity-events-a3/
 ├── database/
-│   └── charityevents_db.sql      # Full schema + seed data (import this first)
-├── api/                           # Backend (RESTful API)
+│   └── charityevents_db.sql          # Full schema + seed data (import this first)
+├── api/                               # Backend RESTful API
 │   ├── package.json
-│   ├── server.js                  # Main Express server
-│   ├── event_db.js                # MySQL connection pool
-│   ├── add_is_custom.js           # One-time migration script (is_custom column)
-│   ├── update_event_image.js      # One-time script (fix local event images)
+│   ├── server.js                      # Main Express server
+│   ├── event_db.js                    # MySQL connection pool
 │   └── routes/
-│       ├── events.js              # API routes for events
-│       └── categories.js          # API routes for categories (add/delete)
-├── client/                        # Frontend (static files)
-│   ├── index.html                 # Home page (hero carousel + event cards)
-│   ├── search.html                # Search page with filters
-│   ├── event.html                 # Event detail page
-│   ├── about.html                 # About us / mission / partners
-│   ├── stories.html               # Rescue stories (before & after)
-│   ├── impact.html                # Impact statistics dashboard
-│   ├── adopt.html                 # Adoptable pets gallery
-│   ├── manage.html                # Admin: add/delete categories & events
-│   ├── images/                    # Local image assets
-│   ├── css/
-│   │   └── style.css              # Global styles (Morandi palette)
-│   └── js/
-│       ├── home.js                # Home page logic + carousels
-│       ├── search.js              # Search page logic
-│       ├── event.js               # Detail page logic
-│       └── manage.js              # Admin management logic
-└── report/
-    └── PROG2002 A2 Report.docx   # Project documentation
+│       ├── events.js                  # Event API routes
+│       └── registrations.js           # Registration API routes
+├── client-angular/                    # Client-side Angular SPA (port 4200)
+│   ├── src/
+│   │   ├── app/
+│   │   │   ├── home/                  # Home page component
+│   │   │   ├── search/                # Search page component
+│   │   │   ├── event-detail/          # Event detail page component
+│   │   │   ├── registration/          # Registration page component
+│   │   │   ├── about/                 # About us page component
+│   │   │   ├── stories/               # Rescue stories page component
+│   │   │   ├── impact/                # Our impact page component
+│   │   │   └── adopt/                 # Adoptable pets page component
+│   │   └── assets/
+│   │       └── images/                # Local image assets
+│   ├── angular.json
+│   ├── proxy.conf.json                # API proxy configuration
+│   └── package.json
+├── admin-angular/                     # Admin-side Angular SPA (port 4300)
+│   └── (same structure as client-angular)
+├── report/
+│   └── A3_Project_Report.md          # Project documentation
+├── API_DOCUMENTATION.md              # Full API endpoint documentation
+├── .gitignore
+└── README.md
 ```
 
 ---
 
-## How to Run
+## 🚀 How to Run
 
 ### Step 1: Set up the Database
-
 1. Open MySQL Workbench
-2. Open the SQL file: `database/charityevents_db.sql`
-3. Click the lightning bolt (Execute) to run it
-4. Refresh the Schemas panel — you should see `charityevents_db`
+2. Run `database/charityevents_db.sql`
+3. You should see `charityevents_db` with 12 events and 10 registrations
 
 ### Step 2: Configure Database Connection
-
-Open `api/event_db.js` and change:
+Edit `api/event_db.js` and set your MySQL password:
 ```js
-password: 'YOUR_MYSQL_PASSWORD_HERE'
+password: 'YOUR_MYSQL_PASSWORD'
 ```
-to your actual MySQL root password.
 
 ### Step 3: Start the API Server
-
 ```bash
 cd api
 npm install
 npm start
 ```
+API runs on `http://localhost:3000`
 
-You should see:
+### Step 4: Start the Client-side Angular App
+```bash
+cd client-angular
+npm install
+npm start
 ```
-[DB] Connected to MySQL database: charityevents_db
-[Server] Charity Events API running on http://localhost:3000
+Client app runs on `http://localhost:4200`
+
+### Step 5: Start the Admin-side Angular App
+```bash
+cd admin-angular
+npm install
+npm start
 ```
-
-### Step 4: Open the Frontend
-
-Open `client/index.html` in your browser (or use Live Server in VS Code).
+Admin app runs on `http://localhost:4300`
 
 ---
 
-## API Endpoints
+## 🔌 API Endpoints
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/events` | List all active + upcoming events |
-| GET | `/api/events/search?date=&location=&category_id=` | Search events by filters |
-| GET | `/api/events/all` | List every event (including past ones) |
-| GET | `/api/events/:id` | Get single event details |
-| GET | `/api/categories` | List all categories |
-| POST | `/api/categories` | Add a new category (is_custom = 1) |
-| DELETE | `/api/categories/:id` | Delete a custom category (seed ones return 403) |
-| POST | `/api/events` | Add a new event (is_custom = 1) |
-| DELETE | `/api/events/:id` | Delete a custom event (seed ones return 403) |
+| Method | Endpoint | Description | Access |
+|--------|----------|-------------|--------|
+| GET | `/api/events` | Get all active events | Public |
+| GET | `/api/events/:id` | Get single event details | Public |
+| POST | `/api/events` | Create new event | Admin |
+| PUT | `/api/events/:id` | Update event | Admin |
+| DELETE | `/api/events/:id` | Delete event | Admin (except system defaults) |
+| POST | `/api/registrations` | Create new registration | Public |
+| GET | `/api/registrations?event_id=:id` | Get registrations for an event | Admin |
+| GET | `/api/weather?latitude=:lat&longitude=:lon` | Get weather for location | Public |
+
+Full API documentation: `API_DOCUMENTATION.md`
 
 ---
 
-## Assignment Checklist
+## ✅ Assignment Checklist
 
-- [x] Database schema with organisations, categories, events tables
-- [x] 12 events across 5 categories, multiple cities
-- [x] `event_db.js` database connection file
-- [x] RESTful API with GET/POST/DELETE endpoints
-- [x] Home page with dynamic event listing + animated carousels
-- [x] Search page with date/location/category filters + Clear button
-- [x] Event detail page with Register button (alert) + fundraising goal
-- [x] Extra pages: About, Stories, Impact, Adopt, Manage
-- [x] Admin page: add/delete custom categories & events (DB-synced, seed protected)
-- [x] Consistent navigation on all pages
-- [x] Project report filled in
-- [ ] GitHub repository with regular commits
-- [ ] Demo video (≤15 min) uploaded to OneDrive
+### Database (5%)
+- [x] Database schema with events, registrations tables
+- [x] 12 events across multiple categories and locations
+- [x] 10 registration seed records
+- [x] Latitude/longitude fields for weather API
+
+### API (10%)
+- [x] RESTful API with GET/POST/PUT/DELETE endpoints
+- [x] Registration endpoints
+- [x] Protected system data (cannot delete seed events)
+- [x] Weather API proxy integration
+
+### Client-side (30%)
+- [x] Angular 22 + TypeScript
+- [x] Home page with carousel and dynamic event listing
+- [x] Search and filter functionality
+- [x] Event detail pages with registration form
+- [x] Rescue stories with before/after photos
+- [x] Responsive design
+- [x] Navigation bar on all pages
+
+### Admin-side (30%)
+- [x] Admin Angular framework
+- [ ] Admin login
+- [ ] Event management (CRUD)
+- [ ] Registration management
+- [ ] Data dashboard
+
+### Conceptual Understanding (10%)
+- [x] Project report written
+- [x] Technology stack explained
+- [x] Architecture documented
+
+### Teamwork (15%)
+- [x] GitHub repository with collaboration
+- [ ] Peer evaluation form
+- [ ] Demo video (≤15 min)
+- [ ] cPanel deployment
+
+---
+
+## 📄 License
+
+GPL-3.0
