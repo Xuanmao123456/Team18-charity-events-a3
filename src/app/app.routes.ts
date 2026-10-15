@@ -7,6 +7,7 @@ import { About } from './about/about';
 import { Stories } from './stories/stories';
 import { Impact } from './impact/impact';
 import { Adopt } from './adopt/adopt';
+import { Login } from './admin/login/login';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -18,5 +19,6 @@ export const routes: Routes = [
   { path: 'stories', component: Stories },
   { path: 'impact', component: Impact },
   { path: 'adopt', component: Adopt },
+  { path: 'admin/login', component: Login },
   { path: '**', redirectTo: 'home' }
 ];

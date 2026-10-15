@@ -1,0 +1,28 @@
+<main class="login-page">
+  <div class="login-card">
+    <h2>🔐 Admin Login</h2>
+    <p class="login-sub">Charity Events Management</p>
+
+    @if (error) {
+      <div class="login-error">{{ error }}</div>
+    }
+
+    <form (ngSubmit)="handleLogin()">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" placeholder="admin"
+               [(ngModel)]="username" autocomplete="username">
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="••••••"
+               [(ngModel)]="password" autocomplete="current-password">
+      </div>
+      <button type="submit" class="btn btn-primary login-btn" [disabled]="loading">
+        {{ loading ? 'Signing in...' : 'Sign In' }}
+      </button>
+    </form>
+
+    <p class="login-hint">Default account: <code>admin</code> / <code>123456</code></p>
+  </div>
+</main>
