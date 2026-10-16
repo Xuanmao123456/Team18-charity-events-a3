@@ -10,6 +10,7 @@ import { Adopt } from './adopt/adopt';
 import { Login } from './admin/login/login';
 import { Events } from './admin/events/events';
 import { EventForm } from './admin/event-form/event-form';
+import { Dashboard } from './admin/dashboard/dashboard';
 import { adminAuthGuard } from './guards/admin-auth.guard';
 
 export const routes: Routes = [
@@ -24,6 +25,7 @@ export const routes: Routes = [
   { path: 'adopt', component: Adopt },
   // ---- Admin side ----
   { path: 'admin/login', component: Login },
+  { path: 'admin/dashboard', component: Dashboard, canActivate: [adminAuthGuard] },
   { path: 'admin/events', component: Events, canActivate: [adminAuthGuard] },
   { path: 'admin/events/new', component: EventForm, canActivate: [adminAuthGuard] },
   { path: 'admin/events/:id/edit', component: EventForm, canActivate: [adminAuthGuard] },
