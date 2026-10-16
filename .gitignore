@@ -8,3 +8,4 @@ pylibs/
 temp-package/
 devserver*.log
 dist/
+.angular/
