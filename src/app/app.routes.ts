@@ -11,6 +11,7 @@ import { Login } from './admin/login/login';
 import { Events } from './admin/events/events';
 import { EventForm } from './admin/event-form/event-form';
 import { Dashboard } from './admin/dashboard/dashboard';
+import { Registrations } from './admin/registrations/registrations';
 import { adminAuthGuard } from './guards/admin-auth.guard';
 
 export const routes: Routes = [
@@ -29,5 +30,6 @@ export const routes: Routes = [
   { path: 'admin/events', component: Events, canActivate: [adminAuthGuard] },
   { path: 'admin/events/new', component: EventForm, canActivate: [adminAuthGuard] },
   { path: 'admin/events/:id/edit', component: EventForm, canActivate: [adminAuthGuard] },
+  { path: 'admin/events/:id/registrations', component: Registrations, canActivate: [adminAuthGuard] },
   { path: '**', redirectTo: 'home' }
 ];
