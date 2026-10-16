@@ -1,5 +1,5 @@
 import { AdminEvent, AdminService } from '../../services/admin.service';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 
 import { AdminNav } from '../admin-nav/admin-nav';
 import { CommonModule } from '@angular/common';
@@ -19,7 +19,7 @@ export class Events implements OnInit {
   message = '';
   messageType: 'success' | 'error' | '' = '';
 
-  constructor(private adminService: AdminService) { }
+  constructor(private adminService: AdminService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.loadEvents();
@@ -32,11 +32,13 @@ export class Events implements OnInit {
       next: (res) => {
         this.events = res.data || [];
         this.loading = false;
+        this.cdr.detectChanges();  // zoneless: manually trigger change detection
       },
       error: (err) => {
         console.error('Failed to load events:', err);
         this.error = err.error?.message || 'Failed to load events. Is the API server running?';
         this.loading = false;
+        this.cdr.detectChanges();  // zoneless: manually trigger change detection
       }
     });
   }

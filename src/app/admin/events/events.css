@@ -1,4 +1,3 @@
-/* 管理端页面通用样式（与 event-form / registrations / dashboard 共用） */
 .admin-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -94,7 +93,7 @@
   white-space: nowrap;
 }
 
-/* 表格内的小按钮 */
+/* Small buttons within the table */
 .btn-small {
   display: inline-block;
   padding: 0.4rem 0.9rem;

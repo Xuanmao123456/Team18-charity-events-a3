@@ -1,0 +1,54 @@
+<app-admin-nav />
+
+<main class="admin-container">
+  <div class="admin-head">
+    <h1>Registrations</h1>
+    <a routerLink="/admin/events" class="btn btn-secondary">← Back to Events</a>
+  </div>
+
+  @if (eventTitle) {
+    <p class="admin-subtitle">Event: <strong>{{ eventTitle }}</strong></p>
+  }
+
+  @if (loading) {
+    <div class="loading">Loading registrations...</div>
+  }
+
+  @if (error) {
+    <div class="admin-message error">{{ error }}</div>
+  }
+
+  @if (!loading && !error) {
+    @if (registrations.length === 0) {
+      <div class="empty-state">
+        <h3>No registrations yet.</h3>
+        <p>Users have not registered for this event.</p>
+      </div>
+    } @else {
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Registered At</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (reg of registrations; track reg.id) {
+              <tr>
+                <td>{{ reg.id }}</td>
+                <td>{{ reg.name }}</td>
+                <td>{{ reg.email }}</td>
+                <td>{{ reg.phone || '-' }}</td>
+                <td>{{ formatDateTime(reg.registration_date) }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  }
+</main>

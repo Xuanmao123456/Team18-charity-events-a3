@@ -1,6 +1,6 @@
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AdminCategory, AdminEvent, AdminService } from '../../services/admin.service';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 
 import { AdminNav } from '../admin-nav/admin-nav';
 import { CommonModule } from '@angular/common';
@@ -45,7 +45,8 @@ export class EventForm implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private adminService: AdminService
+    private adminService: AdminService,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
@@ -60,8 +61,14 @@ export class EventForm implements OnInit {
 
   loadCategories() {
     this.adminService.getCategories().subscribe({
-      next: (res) => { this.categories = res.data || []; },
-      error: (err) => { console.error('Failed to load categories:', err); }
+      next: (res) => {
+        this.categories = res.data || [];
+        this.cdr.detectChanges();  // zoneless: manually trigger change detection
+      },
+      error: (err) => {
+        console.error('Failed to load categories:', err);
+        this.cdr.detectChanges();
+      }
     });
   }
 
@@ -85,11 +92,13 @@ export class EventForm implements OnInit {
         this.registrationsCount = res.registration_stats?.registration_count ?? 0;
         this.totalRaised = Number(e.raised_amount || 0);
         this.loading = false;
+        this.cdr.detectChanges();  // zoneless: manually trigger change detection
       },
       error: (err) => {
         console.error('Failed to load event:', err);
         this.error = err.error?.message || 'Failed to load event data.';
         this.loading = false;
+        this.cdr.detectChanges();
       }
     });
   }
@@ -151,6 +160,7 @@ export class EventForm implements OnInit {
         this.submitting = false;
         this.message = res.message || (this.isEdit ? 'Event updated successfully.' : 'Event created successfully.');
         this.messageType = 'success';
+        this.cdr.detectChanges();  // zoneless: manually trigger change detection
         // Automatically return to the list page after successful saving
         setTimeout(() => this.router.navigate(['/admin/events']), 1200);
       },
@@ -159,6 +169,7 @@ export class EventForm implements OnInit {
         console.error('Save failed:', err);
         this.message = err.error?.message || 'Save failed. Please try again.';
         this.messageType = 'error';
+        this.cdr.detectChanges();
       }
     });
   }
