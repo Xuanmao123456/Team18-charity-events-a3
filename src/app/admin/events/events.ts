@@ -45,7 +45,7 @@ export class Events implements OnInit {
   onDelete(event: AdminEvent) {
     if (!confirm(`Are you sure you want to delete "${event.title}"?`)) return;
 
-    this.adminService.deleteEvent(event.id).subscribe({
+    this.adminService.deleteEvent(event.event_id).subscribe({
       next: (res) => {
         this.showMessage(res.message || 'Event deleted successfully.', 'success');
         this.loadEvents();
@@ -68,7 +68,7 @@ export class Events implements OnInit {
     }, 3000);
   }
 
-  formatPrice(price: number): string {
+  formatPrice(price: string | number): string {
     return '$' + Number(price).toFixed(2);
   }
 

@@ -40,22 +40,22 @@
             </tr>
           </thead>
           <tbody>
-            @for (event of events; track event.id) {
+            @for (event of events; track event.event_id) {
               <tr>
-                <td>{{ event.id }}</td>
+                <td>{{ event.event_id }}</td>
                 <td class="cell-title">{{ event.title }}</td>
                 <td>{{ event.event_date }}</td>
                 <td>{{ event.location }}</td>
-                <td>{{ formatPrice(event.price) }}</td>
-                <td>{{ event.category }}</td>
+                <td>{{ formatPrice(event.ticket_price) }}</td>
+                <td>{{ event.category_name }}</td>
                 <td>
                   <span class="manage-badge" [ngClass]="isSystemEvent(event) ? 'initial' : 'custom'">
                     {{ isSystemEvent(event) ? 'System' : 'Custom' }}
                   </span>
                 </td>
                 <td class="cell-actions">
-                  <a [routerLink]="['/admin/events', event.id, 'edit']" class="btn-small btn-edit">Edit</a>
-                  <a [routerLink]="['/admin/events', event.id, 'registrations']" class="btn-small btn-view">Registrations</a>
+                  <a [routerLink]="['/admin/events', event.event_id, 'edit']" class="btn-small btn-edit">Edit</a>
+                  <a [routerLink]="['/admin/events', event.event_id, 'registrations']" class="btn-small btn-view">Registrations</a>
                   <button type="button" class="btn-small btn-delete" (click)="onDelete(event)">Delete</button>
                 </td>
               </tr>

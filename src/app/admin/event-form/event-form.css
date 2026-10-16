@@ -1,0 +1,97 @@
+.admin-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2.5rem 2rem;
+}
+
+.admin-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.8rem;
+}
+
+.admin-head h1 {
+  color: var(--mocha-dark);
+  font-size: 1.8rem;
+}
+
+.admin-message {
+  padding: 0.8rem 1.2rem;
+  border-radius: 12px;
+  margin-bottom: 1.2rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.admin-message.success {
+  background: #e8f5e9;
+  color: #6b8a68;
+  border: 1px solid #c8e6c9;
+}
+
+.admin-message.error {
+  background: #fdecea;
+  color: #c08888;
+  border: 1px solid #e8b8b8;
+}
+
+/* Top of the editing page: Registration statistics bar */
+.form-stats {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 0.9rem 1.2rem;
+  margin-bottom: 1.2rem;
+  display: flex;
+  gap: 1.8rem;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 0.95rem;
+  color: var(--text);
+}
+
+.form-stats a {
+  color: var(--mist-blue-dark);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* Form card */
+.admin-form {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: var(--shadow-sm);
+  max-width: 860px;
+}
+
+.admin-form textarea {
+  padding: 0.8rem 1rem;
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  background: var(--cream);
+  transition: all 0.3s;
+  resize: vertical;
+  width: 100%;
+}
+
+.admin-form textarea:focus {
+  outline: none;
+  border-color: var(--mocha-light);
+  box-shadow: 0 0 0 4px rgba(185, 160, 144, 0.15);
+  background: #fff;
+}
+
+.form-section-title {
+  color: var(--mocha-dark);
+  font-size: 1.05rem;
+  margin: 1.6rem 0 1rem;
+  padding-left: 0.8rem;
+  border-left: 4px solid var(--terracotta);
+}
