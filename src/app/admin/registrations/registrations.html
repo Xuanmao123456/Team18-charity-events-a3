@@ -33,17 +33,19 @@
               <th>Name</th>
               <th>Email</th>
               <th>Phone</th>
+              <th>Tickets</th>
               <th>Registered At</th>
             </tr>
           </thead>
           <tbody>
-            @for (reg of registrations; track reg.id) {
+            @for (reg of registrations; track reg.registration_id) {
               <tr>
-                <td>{{ reg.id }}</td>
-                <td>{{ reg.name }}</td>
+                <td>{{ reg.registration_id }}</td>
+                <td>{{ reg.full_name }}</td>
                 <td>{{ reg.email }}</td>
                 <td>{{ reg.phone || '-' }}</td>
-                <td>{{ formatDateTime(reg.registration_date) }}</td>
+                <td>{{ reg.ticket_quantity }}</td>
+                <td>{{ formatDateTime(reg.registered_at) }}</td>
               </tr>
             }
           </tbody>

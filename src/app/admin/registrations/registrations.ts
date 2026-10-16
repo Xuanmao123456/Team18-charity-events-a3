@@ -1,6 +1,6 @@
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { AdminRegistration, AdminService } from '../../services/admin.service';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 
 import { AdminNav } from '../admin-nav/admin-nav';
 import { CommonModule } from '@angular/common';
@@ -21,7 +21,8 @@ export class Registrations implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private adminService: AdminService
+    private adminService: AdminService,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
@@ -40,11 +41,13 @@ export class Registrations implements OnInit {
         this.registrations = res.data || [];
         this.eventTitle = this.registrations[0]?.event_title || '';
         this.loading = false;
+        this.cdr.detectChanges();   // zoneless: manually trigger change detection
       },
       error: (err) => {
         console.error('Failed to load registrations:', err);
         this.error = err.error?.message || 'Failed to load registrations.';
         this.loading = false;
+        this.cdr.detectChanges();
       }
     });
   }
