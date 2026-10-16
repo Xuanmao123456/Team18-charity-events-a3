@@ -163,10 +163,10 @@ Full API documentation: `API_DOCUMENTATION.md`
 
 ### Admin-side (30%)
 - [x] Admin Angular framework
-- [ ] Admin login
-- [ ] Event management (CRUD)
-- [ ] Registration management
-- [ ] Data dashboard
+- [x] Admin login
+- [x] Event management (CRUD)
+- [x] Registration management
+- [x] Data dashboard
 
 ### Conceptual Understanding (10%)
 - [x] Project report written
